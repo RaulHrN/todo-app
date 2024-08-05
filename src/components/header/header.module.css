@@ -1,0 +1,15 @@
+.header {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1b263b;
+  position: absolute;
+}
+
+.header_title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}

@@ -1,7 +1,12 @@
-import React from "react";
+import React from 'react';
 
-export const  Header = () => {
-    return(
-        <div>Header</div>
-    )
-}
+//styles
+import styles from './header.module.css';
+
+export const Header = () => {
+  return (
+    <header className={styles.header}>
+      <p className={styles.header_title}>To Do App</p>
+    </header>
+  );
+};
