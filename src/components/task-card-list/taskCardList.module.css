@@ -1,0 +1,19 @@
+.task_card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 1rem 2rem;
+}
+
+.task_card_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.task_card_btns {
+  display: flex;
+}
