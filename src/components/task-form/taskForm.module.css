@@ -27,3 +27,7 @@ form {
     border: none;
     border-radius: 4px;
 }
+
+.form_button :hover {
+  cursor: pointer;
+}

@@ -11,13 +11,14 @@ import { IconButton } from '@mui/material';
 
 interface Props {
   taskList: Task[];
-  handleDeleteTask(id: number): void;
+  handleEditTask: (task: Task) => void;
+  handleDeleteTask: (id: number) => void;
 }
 
 export const TaskCardList = (props: Props) => {
 
   return (
-    <article>
+    <article className={styles.tasks_container}>
       {props.taskList.length > 0 ? (
         props.taskList.map((task) => (
           <section key={task.id} className={styles.task_card}>
@@ -26,7 +27,7 @@ export const TaskCardList = (props: Props) => {
               <p>Lvl: {task.level}</p>
             </div>
             <div className={styles.task_card_btns}>
-              <IconButton size='small'>
+              <IconButton size='small' onClick={() => props.handleEditTask(task)}>
                 <EditNoteIcon />
               </IconButton>
               <IconButton size='small' onClick={() =>  {props.handleDeleteTask(task.id)}}>
