@@ -1,4 +1,5 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import { createTask, updateTask } from 'src/services/api';
 
 // Styles
 import styles from './taskForm.module.css';
@@ -20,19 +21,27 @@ export const TaskForm = (props: TaskFormProps) => {
   const [title, setTitle] = useState<string>('');
 
   // Handlers
-  const handleAddTask = (e: FormEvent<HTMLFormElement>) => {
+  const handleAddTask = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newTask: Task = { id: props.task ? props.task.id : Math.floor(Math.random() * 1000), title, level };
 
-    if (props.setTaskList) {
-      if (props.task) {
-        props.setTaskList((prevTaskList) => prevTaskList.map((task) => (task.id === newTask.id ? newTask : task)));
-      } else {
-        props.setTaskList((prevTaskList) => [...prevTaskList, newTask]);
-      }
+    if (props.task) {
+      await updateTask(newTask)
+        .then(() => {
+          if (props.setTaskList) {
+            props.setTaskList((prevTaskList) => prevTaskList.map((task) => (task.id === newTask.id ? newTask : task)));
+          }
+        })
+        .catch(console.error);
     } else {
-      console.error('setTaskList not defined.');
+      await createTask(newTask)
+        .then(() => {
+          if (props.setTaskList) {
+            props.setTaskList((prevTaskList) => [...prevTaskList, newTask]);
+          }
+        })
+        .catch(console.error);
     }
 
     setTitle('');
@@ -50,8 +59,11 @@ export const TaskForm = (props: TaskFormProps) => {
 
   // Effects
   useEffect(() => {
-    console.log('Task list updated:', props.taskList);
-  }, [props.taskList]);
+    if (props.task) {
+      setTitle(props.task.title);
+      setLevel(props.task.level);
+    }
+  }, [props.task]);
 
   return (
     <form onSubmit={handleAddTask}>

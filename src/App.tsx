@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { fetchTasks, deleteTask as deleteTaskAPI } from './services/api';
 
 // Styles
 import './App.css';
@@ -26,11 +27,11 @@ function App() {
   };
 
   const deleteTask = (id: number) => {
-    setTaskList(
-      taskList.filter((task) => {
-        return task.id !== id;
-      }),
-    );
+    deleteTaskAPI(id)
+      .then(() => {
+        setTaskList(taskList.filter((task) => task.id !== id));
+      })
+      .catch(console.error);
 
     setIsModalOpen(false);
   };
@@ -40,10 +41,15 @@ function App() {
     setIsModalOpen(false);
   };
 
+  // Effects
+  useEffect(() => {
+    fetchTasks().then(setTaskList).catch(console.error);
+  }, []);
+
   return (
     <div className="App">
       <BasicModal open={isModalOpen} onClose={handleCloseModal}>
-        <TaskForm btnText="Send" taskList={taskList} setTaskList={setTaskList} task={currentTask}/>
+        <TaskForm btnText="Send" taskList={taskList} setTaskList={setTaskList} task={currentTask} />
       </BasicModal>
       <Header />
       <main>

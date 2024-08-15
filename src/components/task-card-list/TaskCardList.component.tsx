@@ -4,10 +4,10 @@ import React from 'react';
 import styles from './taskCardList.module.css';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material';
 
 // Interfaces
 import { Task } from '../../intefaces/Task';
-import { IconButton } from '@mui/material';
 
 interface Props {
   taskList: Task[];
@@ -17,9 +17,10 @@ interface Props {
 
 export const TaskCardList = (props: Props) => {
 
+  console.log("Task list: ", props.taskList)
   return (
     <article className={styles.tasks_container}>
-      {props.taskList.length > 0 ? (
+      {Array.isArray(props.taskList) && props.taskList.length > 0 ? (
         props.taskList.map((task) => (
           <section key={task.id} className={styles.task_card}>
             <div className={styles.task_card_info}>
