@@ -1,8 +1,10 @@
 
-# To-Do Application
+# To-Do Application (Backend incomplete)
 
 ## Overview
 This To-Do Application allows users to create, edit, and delete tasks with ease. It leverages modern web development technologies like React and Material UI to provide a responsive and user-friendly interface. The application is designed to handle tasks efficiently, with features such as modals for task creation/editing.
+
+Access the [back-end repository](https://github.com/RaulHrN/user-register-crud-backend).
 
 ## Features
 
